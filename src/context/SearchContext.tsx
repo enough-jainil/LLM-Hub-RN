@@ -1,15 +1,15 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useState, useContext, ReactNode } from "react";
 
-// Define the shape of the search context, including the search query and a function to update it
-interface SearchContextType {
+type SearchContextType = {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-}
+};
 
-// Create a context for managing search state
-const SearchContext = createContext<SearchContextType | undefined>(undefined);
+export const SearchContext = createContext<SearchContextType>({
+  searchQuery: "",
+  setSearchQuery: () => {},
+});
 
-// Provider component that wraps children and provides search state
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -20,10 +20,9 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// Custom hook to use the SearchContext, ensuring it's used within a provider
 export function useSearch() {
   const context = useContext(SearchContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useSearch must be used within a SearchProvider");
   }
   return context;

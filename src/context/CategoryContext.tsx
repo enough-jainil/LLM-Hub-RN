@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useState, useContext, ReactNode } from "react";
 
 // Define the shape of the category context, including the selected category and a function to update it
 type CategoryContextType = {
@@ -7,9 +7,10 @@ type CategoryContextType = {
 };
 
 // Create a context for managing category state
-const CategoryContext = createContext<CategoryContextType | undefined>(
-  undefined
-);
+export const CategoryContext = createContext<CategoryContextType>({
+  selectedCategory: "all",
+  setSelectedCategory: () => {},
+});
 
 // Provider component that wraps children and provides category state
 export function CategoryProvider({ children }: { children: ReactNode }) {
@@ -25,7 +26,7 @@ export function CategoryProvider({ children }: { children: ReactNode }) {
 // Custom hook to use the CategoryContext, ensuring it's used within a provider
 export function useCategory() {
   const context = useContext(CategoryContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useCategory must be used within a CategoryProvider");
   }
   return context;
