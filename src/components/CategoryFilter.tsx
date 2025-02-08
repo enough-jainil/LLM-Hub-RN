@@ -6,7 +6,7 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-import { useCategory } from "@src/context/CategoryContext";
+import { CategoryContext } from "~/context/CategoryContext"; // Ensure this exists in React Native
 import { resourceBlocks } from "~/data/resources";
 
 // Function to get categories and their sub-categories
@@ -51,7 +51,7 @@ const getCategories = () => {
 
 // Main component
 export default function CategoryFilter() {
-  const { selectedCategory, setSelectedCategory } = useCategory();
+  const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
   const categories = getCategories();
   const [mainCategory, subCategory, subSubCategory] = (
     selectedCategory || ""

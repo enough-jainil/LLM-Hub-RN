@@ -9,13 +9,13 @@ import {
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useSearch } from "@src/context/SearchContext";
-import { useCategory } from "@src/context/CategoryContext";
+import { SearchContext } from "~/context/SearchContext";
+import { CategoryContext } from "~/context/CategoryContext";
 import { resourceBlocks } from "~/data/resources";
 import { searchAllResources } from "~/hooks/useGlobalSearch";
 
 const ResourceBlock = ({ title, description, resources, tag, tag2 }) => {
-  const { searchQuery } = useSearch();
+  const { searchQuery } = useContext(SearchContext);
   const navigation = useNavigation();
   const [isViewAllOpen, setIsViewAllOpen] = useState(false);
 
@@ -74,8 +74,8 @@ const ResourceBlock = ({ title, description, resources, tag, tag2 }) => {
 };
 
 export default function ResourceGrid() {
-  const { selectedCategory } = useCategory();
-  const { searchQuery } = useSearch();
+  const { selectedCategory } = useContext(CategoryContext);
+  const { searchQuery } = useContext(SearchContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
